@@ -101,7 +101,7 @@ export default defineComponent({
 
     const data = reactive({
       ruleForm: {
-        checked: false,
+        checked: true,
         userID: '',
       },
       rules: {
