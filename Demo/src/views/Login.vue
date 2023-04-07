@@ -1,51 +1,8 @@
 <template>
   <div :class="['login' + (env.isH5 ? '-h5' : '')]" data-env="H5">
-    <Header class="login-header">
-      <template v-slot:left>
-        <div class="logo">
-          <a @click="openLink(Link.im)">
-            <img src="../assets/image/txc-logo.svg" alt="" />
-            <label class="logo-name">{{ $t('腾讯云') }}</label>
-            <p>
-              <label class="logo-name">{{ $t('即时通信IM') }}</label>
-            </p>
-          </a>
-        </div>
-      </template>
-      <template v-slot:right>
-        <!-- <el-dropdown @command="change"> -->
-        <el-dropdown>
-          <span class="dropdown">
-            <i class="icon icon-global"></i>
-            <label>{{ $t('当前语言') }}</label>
-            <i class="icon icon-arrow-down"></i>
-          </span>
-          <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item command="zh_cn">简体中文</el-dropdown-item>
-              <el-dropdown-item command="en">English</el-dropdown-item>
-            </el-dropdown-menu>
-          </template>
-        </el-dropdown>
-      </template>
-    </Header>
     <main class="login-main">
       <div class="login-main-content">
-        <div class="login-main-adv" :class="[locale === 'en' && 'small-txt']" v-if="!env.isH5">
-          <p class="login-main-adv-introduce">
-            {{ $t('Login.超10亿用户的信赖') }}<br />
-            {{ $t('腾讯云') }}{{ $t('即时通信') }}
-          </p>
-          <a class="login-sale" @click="openLink(Link.adv)">
-            <label>{{ $t('Home.首购低至1折') }}, {{ $t('Home.复购75%起') }}! {{ $t('Home.立即选购') }}</label>
-            <i class="icon icon-adv-arrow"></i>
-          </a>
-        </div>
         <el-form ref="ruleFormRef" :model="ruleForm" status-icon :rules="rules" label-width="0" class="login-form">
-          <div class="login-title">
-            <img src="../assets/image/logo.svg" alt="" />
-            <p>{{ $t('Login.免费体验') }}</p>
-          </div>
           <el-form-item class="login-from-item" prop="userID">
             <el-input
               size="large"
@@ -73,49 +30,9 @@
               {{ $t('Login.登录') }}
             </button>
           </el-form-item>
-          <el-form-item class="login-btn" v-if="isLogin">
-            <button class="btn" @click.prevent="exitLogin">{{ $t('Login.切换其他账号') }}</button>
-          </el-form-item>
-          <footer class="login-form-footer">
-            <a @click="openLink(Link.demo)">{{ $t(`Login.${Link.demo.label}`) }}</a>
-            <a @click="openLink(Link.im)" v-if="!env.isH5">{{ $t(`Login.${Link.im.label}`) }}</a>
-          </footer>
         </el-form>
       </div>
-      <div class="login-main-footer" v-if="!env.isH5">
-        <div class="buttom-mask">
-          <p class="buttom-mask-top">{{ $t('Login.一分钟') }}</p>
-          <p class="buttom-mask-under">{{ $t('Login.改2行代码，1分钟跑通demo') }}</p>
-        </div>
-        <div class="buttom-mask">
-          <p class="buttom-mask-top">10000+</p>
-          <p class="buttom-mask-under">{{ $t('Login.每月服务客户数超过10000家') }}</p>
-        </div>
-        <div class="buttom-mask">
-          <p class="buttom-mask-top">99.99%</p>
-          <p class="buttom-mask-under">{{ $t('Login.消息收发成功率') }}</p>
-        </div>
-        <div class="buttom-mask">
-          <p class="buttom-mask-top">{{ $t('Login.10亿') }}+</p>
-          <p class="buttom-mask-under">{{ $t('Login.每月活跃用户数超过10亿') }}</p>
-        </div>
-      </div>
     </main>
-    <footer class="login-footer" v-if="env.isH5">
-      <ul class="login-footer-list">
-        <li class="login-footer-list-item" v-for="(item, index) in Link.advList" :key="index">
-          <a @click="openLink(item)">
-            <aside>
-              <h1>{{ $t(`Home.${item.label}`) }}</h1>
-              <h1 v-if="item.subLabel" class="sub">{{ $t(`Home.${item.subLabel}`) }}</h1>
-            </aside>
-            <span
-              ><text>{{ $t(`Home.${item.btnText}`) }}</text></span
-            >
-          </a>
-        </li>
-      </ul>
-    </footer>
   </div>
 </template>
 
