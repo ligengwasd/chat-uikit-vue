@@ -37,36 +37,7 @@
                 </li>
               </ul>
             </main>
-            <div class="setting-footer" @click="getProfile">
-              <i class="icon icon-setting" @click="openShowMore"></i>
-              <div class="setting-more" v-if="showMore">
-                <div class="showmore">
-                  <ul class="setting-more-ul">
-                    <li v-for="item in moreList" :key="item.key" class="setting-more-li">
-                      <div
-                        class="setting-more-item"
-                        @click="handleSelectClick(item)"
-                        @mouseover="showSelectMore = item.key"
-                      >
-                        <span>{{ $t(`Home.${item?.name}`) }}</span>
-                        <i v-show="item?.moreSelect" class="icon icon-right-transparent"></i>
-                      </div>
-                      <ul v-if="item?.moreSelect && showSelectMore === item?.key" class="setting-more-item-next">
-                        <li class="setting-more-item" @click="handleSelectClick(item, true)">
-                          <span>{{ $t(`Home.开启`) }}</span>
-                          <i v-show="item?.status" class="icon icon-selected"></i>
-                        </li>
-                        <li class="setting-more-item" @click="handleSelectClick(item, false)">
-                          <span>{{ $t(`Home.关闭`) }}</span>
-                          <i v-show="!item?.status" class="icon icon-selected"></i>
-                        </li>
-                      </ul>
-                    </li>
-                  </ul>
-                </div>
-                <div class="moreMask" @click.self="openShowMore"></div>
-              </div>
-            </div>
+
           </div>
           <div class="home-TUIKit-main" v-show="currentModel === 'message'">
             <div class="conversation">
