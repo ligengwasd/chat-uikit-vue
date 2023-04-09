@@ -75,45 +75,12 @@
             </div>
             <div class="chat">
               <TUIChat :isMsgNeedReadReceipt="isMsgNeedReadReceipt" :isNeedTyping="true" :isNeedEmojiReact="true">
-                <div class="chat-default">
-                  <h1>
-                    {{ $t('Home.欢迎使用') }} <img class="logo" src="../assets/image/logo.svg" alt="" />
-                    {{ $t('即时通信') }}
-                  </h1>
-                  <p>
-                    {{
-                      showText
-                        ? $t(
-                            'Home.我们为您默认提供了一位“示例好友”和一个“示例客服群”您不用额外添加好友和群聊就可完整体验腾讯云 IM 单聊、群聊的所有功能。'
-                          )
-                        : ''
-                    }}
-                    <br v-show="showText" />
-                    {{ $t('Home.随时随地') }}
-                  </p>
-                </div>
               </TUIChat>
             </div>
           </div>
           <div class="home-TUIKit-main" v-show="currentModel === 'group'">
+              wwww
             <TUIContact v-show="currentModel === 'group'" :displayOnlineStatus="displayOnlineStatus">
-              <div class="chat-default">
-                <h1>
-                  {{ $t('Home.欢迎使用') }} <img class="logo" src="../assets/image/logo.svg" alt="" />
-                  {{ $t('即时通信') }}
-                </h1>
-                <p>
-                  {{
-                    showText
-                      ? $t(
-                          'Home.我们为您默认提供了一位“示例好友”和一个“示例客服群”您不用额外添加好友和群聊就可完整体验腾讯云 IM 单聊、群聊的所有功能。'
-                        )
-                      : ''
-                  }}
-                  <br v-show="showText" />
-                  {{ $t('Home.随时随地') }}
-                </p>
-              </div>
             </TUIContact>
           </div>
         </div>
