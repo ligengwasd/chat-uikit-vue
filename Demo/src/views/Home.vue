@@ -79,7 +79,6 @@
             </div>
           </div>
           <div class="home-TUIKit-main" v-show="currentModel === 'group'">
-              wwww
             <TUIContact v-show="currentModel === 'group'" :displayOnlineStatus="displayOnlineStatus">
             </TUIContact>
           </div>
