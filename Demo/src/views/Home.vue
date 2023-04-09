@@ -1,9 +1,5 @@
 <template>
-  <div :class="['home' + (env.isH5 ? '-h5' : '')]" :id="env.isH5 ? '' : 'preloadedImages'">
-
-    <main class="home-main" :class="[menuStatus && 'home-main-open']" v-if="!env.isH5">
-      <div class="home-main-box">
-        <div class="home-TUIKit">
+    <div class="home-TUIKit">
           <div class="setting">
             <main class="setting-main">
               <aside class="userInfo">
@@ -121,8 +117,6 @@
             </TUIContact>
           </div>
         </div>
-      </div>
-    </main>
     <div class="dialog" v-if="showAbout" @click.self="closeShowAbout">
       <div class="show-about-box">
         <header class="title" v-if="env.isH5">
@@ -282,7 +276,6 @@
     <Drag :show="showCallMini" class="callkit-drag-container-mini" domClassName="callkit-drag-container-mini">
       <TUICallKitMini style="position: static" />
     </Drag>
-  </div>
 </template>
 
 <script lang="ts">
