@@ -1,5 +1,92 @@
 <template>
-    <div class="home-TUIKit">
+  <div :class="['home' + (env.isH5 ? '-h5' : '')]" :id="env.isH5 ? '' : 'preloadedImages'">
+    <Header class="home-header" v-if="!env.isH5">
+      <template v-slot:left>
+        <div class="menu" :class="[menuStatus && 'menu-open']" @click="toggleMenu">
+          <i class="icon icon-menu"></i>
+          <label>{{ $t('使用指引') }}</label>
+        </div>
+      </template>
+      <template v-slot:right>
+        <el-dropdown @command="change">
+          <span class="dropdown">
+            <i class="icon icon-global"></i>
+            <label>{{ $t('当前语言') }}</label>
+            <i class="icon icon-arrow-down"></i>
+          </span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item command="zh_cn">简体中文</el-dropdown-item>
+              <el-dropdown-item command="en">
+                <a @click="openLink(Link.intl)" class="language-intl">English</a>
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
+      </template>
+    </Header>
+    <div :class="['menu' + (env.isH5 ? '-h5' : '')]" v-if="menuStatus" @click.self="toggleMenu">
+      <Menu class="home-menu">
+        <template #header>
+          <div class="logo" v-if="!env.isH5">
+            <img src="../assets/image/txc-logo.svg" alt="" />
+            <label class="logo-name">{{ $t('腾讯云') }}</label>
+            <p>
+              <label class="logo-name">{{ $t('即时通信IM') }}</label>
+            </p>
+          </div>
+          <div class="menu-title" v-else>
+            <h1>{{ $t('使用指引') }}</h1>
+            <span class="btn btn-text" @click="toggleMenu">{{ $t('Home.关闭') }}</span>
+          </div>
+        </template>
+        <template #main>
+          <div class="menu-main">
+            <ul class="menu-main-list bottom-line">
+              <h1 class="menu-main-title">{{ $t('Home.建议体验功能') }}</h1>
+              <li
+                class="menu-main-list-item flex-justify-between"
+                :class="[item.status && 'complete']"
+                v-for="(item, index) in taskList"
+                :key="index"
+              >
+                <label>{{ $t(`Home.${item.label}`) }}</label>
+                <span class="status"
+                  ><text>{{ $t(item.status ? 'Home.已完成' : 'Home.待体验') }}</text></span
+                >
+              </li>
+            </ul>
+            <ul class="menu-main-list">
+              <h1 class="menu-main-title">{{ $t('Home.用UI组件快速集成') }}</h1>
+              <li class="menu-main-list-item" v-for="(item, index) in stepList" :key="index">
+                <label class="step">{{ index + 1 }}</label>
+                <a @click="openDataLink(item)">{{ $t(`Home.${item.label}`) }}</a>
+              </li>
+            </ul>
+          </div>
+        </template>
+        <template #footer>
+          <div class="menu-footer">
+            <ul class="menu-footer-list">
+              <li class="menu-footer-list-item" v-for="(item, index) in advList" :key="index">
+                <a @click="openDataLink(item)">
+                  <aside>
+                    <h1>{{ $t(`Home.${item.label}`) }}</h1>
+                    <h1 v-if="item.subLabel" class="sub">{{ $t(`Home.${item.subLabel}`) }}</h1>
+                  </aside>
+                  <span>
+                    <text>{{ $t(`Home.${item.btnText}`) }}</text>
+                  </span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </template>
+      </Menu>
+    </div>
+    <main class="home-main" :class="[menuStatus && 'home-main-open']" v-if="!env.isH5">
+      <div class="home-main-box">
+        <div class="home-TUIKit">
           <div class="setting">
             <main class="setting-main">
               <aside class="userInfo">
@@ -37,7 +124,36 @@
                 </li>
               </ul>
             </main>
-
+            <div class="setting-footer" @click="getProfile">
+              <i class="icon icon-setting" @click="openShowMore"></i>
+              <div class="setting-more" v-if="showMore">
+                <div class="showmore">
+                  <ul class="setting-more-ul">
+                    <li v-for="item in moreList" :key="item.key" class="setting-more-li">
+                      <div
+                        class="setting-more-item"
+                        @click="handleSelectClick(item)"
+                        @mouseover="showSelectMore = item.key"
+                      >
+                        <span>{{ $t(`Home.${item?.name}`) }}</span>
+                        <i v-show="item?.moreSelect" class="icon icon-right-transparent"></i>
+                      </div>
+                      <ul v-if="item?.moreSelect && showSelectMore === item?.key" class="setting-more-item-next">
+                        <li class="setting-more-item" @click="handleSelectClick(item, true)">
+                          <span>{{ $t(`Home.开启`) }}</span>
+                          <i v-show="item?.status" class="icon icon-selected"></i>
+                        </li>
+                        <li class="setting-more-item" @click="handleSelectClick(item, false)">
+                          <span>{{ $t(`Home.关闭`) }}</span>
+                          <i v-show="!item?.status" class="icon icon-selected"></i>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="moreMask" @click.self="openShowMore"></div>
+              </div>
+            </div>
           </div>
           <div class="home-TUIKit-main" v-show="currentModel === 'message'">
             <div class="conversation">
@@ -46,14 +162,50 @@
             </div>
             <div class="chat">
               <TUIChat :isMsgNeedReadReceipt="isMsgNeedReadReceipt" :isNeedTyping="true" :isNeedEmojiReact="true">
+                <div class="chat-default">
+                  <h1>
+                    {{ $t('Home.欢迎使用') }} <img class="logo" src="../assets/image/logo.svg" alt="" />
+                    {{ $t('即时通信') }}
+                  </h1>
+                  <p>
+                    {{
+                      showText
+                        ? $t(
+                            'Home.我们为您默认提供了一位“示例好友”和一个“示例客服群”您不用额外添加好友和群聊就可完整体验腾讯云 IM 单聊、群聊的所有功能。'
+                          )
+                        : ''
+                    }}
+                    <br v-show="showText" />
+                    {{ $t('Home.随时随地') }}
+                  </p>
+                </div>
               </TUIChat>
             </div>
           </div>
           <div class="home-TUIKit-main" v-show="currentModel === 'group'">
             <TUIContact v-show="currentModel === 'group'" :displayOnlineStatus="displayOnlineStatus">
+              <div class="chat-default">
+                <h1>
+                  {{ $t('Home.欢迎使用') }} <img class="logo" src="../assets/image/logo.svg" alt="" />
+                  {{ $t('即时通信') }}
+                </h1>
+                <p>
+                  {{
+                    showText
+                      ? $t(
+                          'Home.我们为您默认提供了一位“示例好友”和一个“示例客服群”您不用额外添加好友和群聊就可完整体验腾讯云 IM 单聊、群聊的所有功能。'
+                        )
+                      : ''
+                  }}
+                  <br v-show="showText" />
+                  {{ $t('Home.随时随地') }}
+                </p>
+              </div>
             </TUIContact>
           </div>
         </div>
+      </div>
+    </main>
     <div class="dialog" v-if="showAbout" @click.self="closeShowAbout">
       <div class="show-about-box">
         <header class="title" v-if="env.isH5">
@@ -213,6 +365,7 @@
     <Drag :show="showCallMini" class="callkit-drag-container-mini" domClassName="callkit-drag-container-mini">
       <TUICallKitMini style="position: static" />
     </Drag>
+  </div>
 </template>
 
 <script lang="ts">
