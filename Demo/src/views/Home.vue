@@ -10,9 +10,9 @@
                     <el-menu-item index="/home/chat">
                         <router-link to="/home/chat">即时通信</router-link>
                     </el-menu-item>
-                    <el-menu-item>222</el-menu-item>
-                    <el-menu-item>333</el-menu-item>
-                    <el-menu-item>444</el-menu-item>
+                    <el-menu-item>表单设计器</el-menu-item>
+                    <el-menu-item>表单解析器</el-menu-item>
+                    <el-menu-item>流程设计器</el-menu-item>
                 </el-menu>
             </el-aside>
             <el-container>
