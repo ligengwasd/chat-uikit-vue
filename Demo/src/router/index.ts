@@ -27,6 +27,10 @@ const routes: Array<RouteRecordRaw> = [
         path: '/home/formGenerator',  // 项目 进行中
         name: 'formGenerator',
         component: () => import(/* webpackChunkName: "about" */ '../views/FormGenerator.vue')    // 子路由
+      },{
+        path: '/home/formParser',  // 项目 进行中
+        name: 'formParser',
+        component: () => import(/* webpackChunkName: "about" */ '../views/FormParser.vue')    // 子路由
       }
     ]
   },

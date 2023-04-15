@@ -12,7 +12,9 @@
                     <el-menu-item index="/home/formGenerator">
                         <router-link to="/home/formGenerator">表单设计器</router-link>
                     </el-menu-item>
-                    <el-menu-item>表单解析器</el-menu-item>
+                    <el-menu-item index="/home/formParser">
+                        <router-link to="/home/formParser">表单解析器</router-link>
+                    </el-menu-item>
                     <el-menu-item>流程设计器</el-menu-item>
                 </el-menu>
             </el-aside>
