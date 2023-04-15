@@ -4,13 +4,14 @@
             <h1>IM & 智能机器人 & 工作流 缝合怪</h1>
         </el-header>
         <el-container>
-
             <el-aside width="200px">
                 <el-menu>
                     <el-menu-item index="/home/chat">
                         <router-link to="/home/chat">即时通信</router-link>
                     </el-menu-item>
-                    <el-menu-item>表单设计器</el-menu-item>
+                    <el-menu-item index="/home/formGenerator">
+                        <router-link to="/home/formGenerator">表单设计器</router-link>
+                    </el-menu-item>
                     <el-menu-item>表单解析器</el-menu-item>
                     <el-menu-item>流程设计器</el-menu-item>
                 </el-menu>
