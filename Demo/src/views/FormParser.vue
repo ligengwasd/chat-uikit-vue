@@ -1,6 +1,6 @@
 <template>
     <div class="test-from">
-        333
+        {{formConf}}
         <parser :form-conf="formConf" @submit="sumbitForm1" />
         <parser :form-conf="formConf" @submit="sumbitForm2" />
     </div>
